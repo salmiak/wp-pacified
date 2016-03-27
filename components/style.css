@@ -1,0 +1,12 @@
+/*
+Theme Name: <%= pkg.title %>
+Theme URI: <%= pkg.homepage %>
+Author: <%= pkg.author %>
+Author URI: <%= pkg.repository.url %>
+Description: <%= pkg.description %>
+Version: <%= pkg.version %>
+License: <%= pkg.license %>
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/

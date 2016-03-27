@@ -1,0 +1,19 @@
+# =============================================
+# Build config
+# =============================================
+
+root:             _build
+dest:             <%= site.root %>
+assets:           <%= site.dest %>/assets
+
+# Data
+data:             data/*.{json,yml}
+
+# Theme
+theme:            theme
+components:       components
+images:           img
+
+
+version:          <%= pkg.version %>
+license:          <%= pkg.license %>
