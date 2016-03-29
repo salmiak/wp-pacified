@@ -1,44 +1,49 @@
 <?php get_header(); ?>
 
-<?php if (have_posts()) :
-	while (have_posts()) :
-	the_post(); ?>
+	<div id="main">
 
-    <article class="post" id="post-<?php the_ID(); ?>">
-      <h2 class="post-title"><a href="<?php the_permalink(); ?>">
-				<?php the_title(); ?></a>
-			</h2>
+		<!-- starta loopen -->
+		<?php while ( have_posts() ) : the_post(); ?>
 
-			<div class="clear"></div>
+		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+    		<header class="post-header">
+    			<h3 class="post-title"><a href="<?php the_permalink() ?>" rel="bookmark" title="Permalänk till <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
 
+    			<div class="post-meta">
+    				<small>Published <?php the_time('j F, Y') ?> by <?php the_author_posts_link() ?></small>
+    			</div><!-- slut post-meta -->
+    		</header>
 
-      <p>
-				<?php echo get_the_excerpt() ?>
-				<a href="<?php the_permalink()?>" class="post-link" style="white-space: nowrap">Read more</a>
-      </p>
+    		<?php if ( is_archive() || is_search() ) : // Visa bara ett utdrag på arkiv- och sök-sidorna ?>
+    		<div class="post-utdrag">
+    			<?php the_excerpt( __( 'Read more' ) ); ?>
+    		</div><!-- slut post-utdrag -->
+    		<?php else : ?>
 
-    </article>
+    		<div class="post-content">
+    			<?php the_content( __( 'Read more' ) ); ?>
+    			<?php wp_link_pages(); ?>
+    		</div><!-- slut post-content -->
+    		<?php endif; ?>
 
-	<?php endwhile; ?>
+    		<footer class="post-meta">
+    			<small>Categorised under <?php the_category(', '); ?> <?php the_tags('med etiketterna: ', ', '); ?> with <?php comments_popup_link( __( 'no comments' ), __( '1 comment' ), __( '% comments' ) ); ?></small>
+    			<?php edit_post_link( __( 'Edit post' ), ' | ' ); ?>
+    		</footer>
+    	</article>
 
-	<div class="page-nav">
-	  <div class="page-nav-previous pull-right"><?php next_posts_link( 'Older posts >' ); ?></div>
-		<div class="page-nav-next pull-left"><?php previous_posts_link( '< Newer posts' ); ?></div>
-	</div>
+		<?php comments_template(); ?>
 
-</div>
+		<?php endwhile; ?>
 
-<?php else : ?>
+		<?php if (  $wp_query->max_num_pages > 1 ) : ?>
+		<nav id="nav-nedan">
+    		<div class="nav-fore"><?php next_posts_link( __( '← Older posts' ) ); ?></div>
+    		<div class="nav-efter"><?php previous_posts_link( __( 'Newer posts →' ) ); ?></div>
+    	</nav><!-- slut nav-nedan -->
 
-	  <div class="container container-center text-center">
-	    <h4>404</h4>
-	    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/error.png" width="128" style="margin-bottom: 10px" />
-	    <p class="lead">The page you're looking for isn't here.</p>
-	    <p>Did we send you here? Please <a href="mailto:support@brisk.io" class="text-white">tell us</a>.</p>
-	  </div>
+		<?php endif; ?><!-- avsluta loopen -->
 
-<?php endif; ?>
-
-</div>
+	</div><!-- slut main -->
 
 <?php get_footer(); ?>

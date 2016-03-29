@@ -54,10 +54,20 @@ module.exports = function(grunt) {
           }
         ],
         options: {
-            process: function(content, path) {
-                return grunt.template.process(content);
-            }
+          process: function(content, path) {
+            return grunt.template.process(content);
+          }
         }
+      },
+      app: {
+        files: [
+          {
+            expand: true,
+            cwd: 'app',
+            src: ['**/*.*'],
+            dest: '<%= site.dest %>'
+          }
+        ]
       }
     },
 
@@ -102,6 +112,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-cache-bust');
 
   var jobs = ['clean',
+              'copy:app',
               'copy:components',
               'copy:images',
               'less',
@@ -111,6 +122,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('design', [
               'less',
-              'copy:images',
-              'copy:components']);
+              'copy:app',
+              'copy:components',
+              'copy:images']);
 };

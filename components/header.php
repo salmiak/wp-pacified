@@ -1,23 +1,37 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <html <?php language_attributes(); ?>>
+  <head>
 
-  <title><?php wp_title(); ?></title>
-  <meta name="viewport" content="width=device-width">
+    <!--
 
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+      Welcome to the source of this site -
+      I built this: Salmiak media (http://salmiakmedia.se)
 
-  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900,300italic' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css">
+    -->
 
-  <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/assets/img/favicon.png" type="image/png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="<?php bloginfo( 'charset' ); ?>" />
 
-  <?php wp_head(); ?>
-</head>
+    <title><?php wp_title('&raquo;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
 
-<body <?php body_class(); ?>>
+    <link rel="icon" href="<?php bloginfo('template_url'); ?>/assets/img/favicon.png" type="image/png">
+
+    <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/assets/css/style.css">
+    <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+
+    <?php wp_head(); ?>
+
+  </head>
+
+  <body <?php body_class(); ?>>
+
+    <header>
+      <hgroup>
+        <h1><a href="<?php bloginfo('url'); ?>" title="<?php bloginfo('name'); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+        <h2><?php bloginfo( 'description' ); ?></h2>
+      </hgroup>
+
+      <nav>
+        <?php wp_nav_menu( 'sort_column=menu_order' ); ?>
+      </nav>
+    </header>
