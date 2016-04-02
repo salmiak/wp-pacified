@@ -1,0 +1,50 @@
+#MainContent {
+  width: 90vw;
+  max-width: 1000px;
+  position: relative;
+  margin: 0 auto;
+  // background: fade(#FFF, 30%);
+  .clipbox {
+    height: calc(100vh ~"-" @headerHeight);
+    position: relative;
+    body.admin-bar & {
+      height: calc(100vh ~"-" @headerHeight ~"-" 32px);
+    }
+  }
+
+  .strip {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+
+    &Prev {
+      top: 15%;
+      .transform(translate3d(0,-100%,0), scale(@ratioHalfGolden), rotate3d(0,0,1,-2deg));
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    &Active {
+      top: 50%;
+      .transform(translate3d(0,-50%,0), scale(1));
+      z-index: 100;
+    }
+
+    &Next {
+      top: 85%;
+      .transform(translate3d(0,0%,0), scale(@ratioHalfGolden), rotate3d(0,0,1,1.5deg));
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .stripImg {
+      max-width: 100%;
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}

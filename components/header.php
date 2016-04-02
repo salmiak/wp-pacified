@@ -16,7 +16,7 @@
 
     <link rel="icon" href="<?php bloginfo('template_url'); ?>/assets/img/favicon.png" type="image/png">
 
-    <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/assets/style.css">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
     <?php wp_head(); ?>
@@ -26,12 +26,15 @@
   <body <?php body_class(); ?>>
 
     <header>
-      <hgroup>
-        <h1><a href="<?php bloginfo('url'); ?>" title="<?php bloginfo('name'); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-        <h2><?php bloginfo( 'description' ); ?></h2>
+      <hgroup class="topHeader">
+        <h1><a href="<?php bloginfo('url'); ?>" title="<?php bloginfo('name'); ?> - <?php bloginfo( 'description' ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+
+        <nav>
+          <?php wp_nav_menu( 'sort_column=menu_order' ); ?>
+        </nav>
       </hgroup>
 
-      <nav>
-        <?php wp_nav_menu( 'sort_column=menu_order' ); ?>
-      </nav>
+      <hgroup class="subHeader">
+        Strip title
+      </hgroup>
     </header>

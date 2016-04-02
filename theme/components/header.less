@@ -1,0 +1,87 @@
+// Header
+
+header {
+  @height: @headerHeight;
+  @margin: 1rem;
+  @bg: #00707e;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  z-index: 600;
+
+  // FIX: Move down header if logged in with admin-bar.
+  body.admin-bar & {
+    top: 32px;
+  }
+
+  .topHeader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    z-index: 100;
+    height: @height;
+    background: @bg;
+
+    h1 {
+      margin: @height*0.2 @margin 0;
+      a {
+        content: url(img/logo.svg);
+        width: auto;
+        height: @height*1/@ratioGolden;
+      }
+    }
+
+    nav {
+      position: absolute;
+      top: 0px;
+      left: auto;
+      right: @margin;
+      bottom: auto;
+      font-size: @ratioHalfGolden*1rem;
+      ul {
+        list-style: none;
+        margin: 0;
+        li {
+          display: inline-block;
+          line-height: @height;
+          a {
+            color: #FFF;
+            text-decoration: none;
+            line-height: inherit;
+            display: inline-block;
+            padding: 0 @margin*@ratioGolden;
+            .capitals;
+            &:hover {
+              background: fade(#FFF,10%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .subHeader {
+    @subhHeight: @ratioGolden * @height;
+
+    position: absolute;;
+    top: @height;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    z-index: 0;
+    height: @subhHeight;
+    line-height: @subhHeight;
+    padding-left: calc(@height*1/@ratioGolden*3.79 ~"+" @margin*1.5);
+
+    color: #FFF;
+    background: fade(@bg, 60%);
+
+    .capitals;
+    font-size: @ratioGolden*1rem;
+  }
+}

@@ -6,13 +6,13 @@
 		<?php while ( have_posts() ) : the_post(); ?>
 
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-    		<header class="post-header">
+    		<div class="post-header">
     			<h3 class="post-title"><a href="<?php the_permalink() ?>" rel="bookmark" title="Permalänk till <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
 
     			<div class="post-meta">
     				<small>Published <?php the_time('j F, Y') ?> by <?php the_author_posts_link() ?></small>
     			</div><!-- slut post-meta -->
-    		</header>
+    		</div>
 
     		<?php if ( is_archive() || is_search() ) : // Visa bara ett utdrag på arkiv- och sök-sidorna ?>
     		<div class="post-utdrag">

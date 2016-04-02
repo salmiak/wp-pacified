@@ -1,3 +1,32 @@
-body {
-  background: red;
+// Vendor imports
+@import "../node_modules/lesshat/build/lesshat.less";
+@import (less) "../node_modules/normalize.css/normalize.css";
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+// Variables
+@headerHeight: 2.5rem;
+@ratioGolden: 0.61803398875;
+@ratioHalfGolden: 0.78615137775;
+
+// Mixins
+
+.capitals {
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
 }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #82ca9c;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  padding-top: @headerHeight;
+}
+
+@import "components/header.less";
+@import "components/maincontent.less";

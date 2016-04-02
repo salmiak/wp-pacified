@@ -72,16 +72,12 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      all: {
-        files: ['<%= jshint.all %>'],
-        tasks: ['jshint', 'nodeunit']
-      },
       site: {
         files: ['img/**/*.*'],
         tasks: ['assets']
       },
       design: {
-        files: ['Gruntfile.js', '<%= less.options.paths %>/*.less', 'templates/**/*.hbs','templates/**/*.md','data/**/*.*'],
+        files: ['Gruntfile.js', '<%= less.options.paths %>/**/*.less', 'components/**/*.*','app/**/*.*'],
         tasks: ['design']
       }
     },
