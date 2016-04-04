@@ -3,20 +3,23 @@
   max-width: 1000px;
   position: relative;
   margin: 0 auto;
-  // background: fade(#FFF, 30%);
+  padding-bottom: 15vh;
   .clipbox {
-    height: calc(100vh ~"-" @headerHeight);
-    position: relative;
+    //height: calc(100vh ~"-" @headerHeight);
+    //position: relative;
+    //overflow: hidden;
     body.admin-bar & {
-      height: calc(100vh ~"-" @headerHeight ~"-" 32px);
+      //height: calc(100vh ~"-" @headerHeight ~"-" 32px);
     }
+
   }
 
   .strip {
-    position: absolute;
+    //position: absolute;
+    position: relative;
     width: 100%;
     height: auto;
-    overflow: hidden;
+    transform-origin: 50% 50%;
 
     &Prev {
       top: 15%;
@@ -38,9 +41,9 @@
       opacity: 0.6;
     }
 
-    .stripImg {
-      max-width: 100%;
-      max-height: 80vh;
+    > a > img {
+      max-width: 90%;
+      max-height: 85vh;
       width: auto;
       height: auto;
       display: block;
