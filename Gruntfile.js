@@ -44,6 +44,16 @@ module.exports = function(grunt) {
           },
         ]
       },
+      javascript: {
+        files: [
+          {
+            expand: true,
+            cwd: 'js',
+            src: ['**/*.*'],
+            dest: '<%= site.assets %>'
+          },
+        ]
+      },
       components: {
         files: [
           {
@@ -73,8 +83,8 @@ module.exports = function(grunt) {
 
     watch: {
       site: {
-        files: ['img/**/*.*'],
-        tasks: ['assets']
+        files: ['img/**/*.*','js/**/*.*'],
+        tasks: ['default']
       },
       design: {
         files: ['Gruntfile.js', '<%= less.options.paths %>/**/*.less', 'components/**/*.*','app/**/*.*'],
@@ -108,9 +118,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-cache-bust');
 
   var jobs = ['clean',
-              'copy:app',
-              'copy:components',
-              'copy:images',
+              'copy',
               'less',
               //'cacheBust'
             ];
@@ -118,7 +126,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('design', [
               'less',
-              'copy:app',
-              'copy:components',
-              'copy:images']);
+              'copy']);
 };

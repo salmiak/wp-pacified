@@ -15,8 +15,7 @@
     <title><?php wp_title('&raquo;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
 
     <link rel="icon" href="<?php bloginfo('template_url'); ?>/assets/img/favicon.png" type="image/png">
-
-    <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/assets/style.css">
+    
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
     <?php wp_head(); ?>

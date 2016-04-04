@@ -26,6 +26,21 @@ if ( function_exists('register_sidebar') )
 	'after_title' => '</h4>',
 ));
 
+//------------------------------------------------------
+//  Add Stylesheet
+//------------------------------------------------------
+
+wp_deregister_style('pacifiedjs');
+wp_register_style( 'pacifiedcss', get_stylesheet_directory_uri() ."/assets/style.css" );
+wp_enqueue_style('pacifiedcss');
+
+//------------------------------------------------------
+//  Add Javascript
+//------------------------------------------------------
+
+wp_deregister_script('pacifiedjs');
+wp_register_script('pacifiedjs', get_stylesheet_directory_uri() ."/assets/pacified.js", false, false, true);
+wp_enqueue_script('pacifiedjs');
 
 //------------------------------------------------------
 //  Add jQuery from Google
