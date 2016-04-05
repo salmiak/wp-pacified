@@ -40,9 +40,11 @@ if ( !is_admin() ) {
 //  Add Javascript
 //------------------------------------------------------
 
-wp_deregister_script('pacifiedjs');
-wp_register_script('pacifiedjs', get_stylesheet_directory_uri() ."/assets/pacified.js", false, false, true);
-wp_enqueue_script('pacifiedjs');
+if ( !is_admin() ) {
+  wp_deregister_script('pacifiedjs');
+  wp_register_script('pacifiedjs', get_stylesheet_directory_uri() ."/assets/pacified.js", false, false, true);
+  wp_enqueue_script('pacifiedjs');
+}
 
 //------------------------------------------------------
 //  Add jQuery from Google
