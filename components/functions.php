@@ -30,9 +30,11 @@ if ( function_exists('register_sidebar') )
 //  Add Stylesheet
 //------------------------------------------------------
 
-wp_deregister_style('pacifiedjs');
-wp_register_style( 'pacifiedcss', get_stylesheet_directory_uri() ."/assets/style.css" );
-wp_enqueue_style('pacifiedcss');
+if ( !is_admin() ) {
+  wp_deregister_style('pacifiedjs');
+  wp_register_style( 'pacifiedcss', get_stylesheet_directory_uri() ."/assets/style.css" );
+  wp_enqueue_style('pacifiedcss');
+}
 
 //------------------------------------------------------
 //  Add Javascript
