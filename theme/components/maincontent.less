@@ -4,42 +4,12 @@
   position: relative;
   margin: 0 auto;
   padding-bottom: 15vh;
-  .clipbox {
-    //height: calc(100vh ~"-" @headerHeight);
-    //position: relative;
-    //overflow: hidden;
-    body.admin-bar & {
-      //height: calc(100vh ~"-" @headerHeight ~"-" 32px);
-    }
-
-  }
 
   .strip {
-    //position: absolute;
     position: relative;
     width: 100%;
     height: auto;
     transform-origin: 50% 50%;
-
-    &Prev {
-      top: 15%;
-      .transform(translate3d(0,-100%,0), scale(@ratioHalfGolden), rotate3d(0,0,1,-2deg));
-      z-index: 0;
-      opacity: 0.6;
-    }
-
-    &Active {
-      top: 50%;
-      .transform(translate3d(0,-50%,0), scale(1));
-      z-index: 100;
-    }
-
-    &Next {
-      top: 85%;
-      .transform(translate3d(0,0%,0), scale(@ratioHalfGolden), rotate3d(0,0,1,1.5deg));
-      z-index: 0;
-      opacity: 0.6;
-    }
 
     > a > img {
       max-width: 90%;
