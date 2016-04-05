@@ -13,37 +13,71 @@ $(function(){
   var scrollTO;
   var $currentElement;
 
+  var windowModel = {
+    init: function(){
+      this._top = 0;
+      this._bottom = 0;
+      this._center = 0;
+      this._height = 0;
+    },
+    updateValues: function(){
+      this._height = $window.height() - settings.headerHeight;
+      this._top = $window.scrollTop() + settings.headerHeight;
+      this._bottom = this._top + this._height;
+      this._center = this._top + this._height/2;
+    },
+    getHeight: function(){
+      return this._height;
+    },
+    getTop: function(){
+      return this._top;
+    },
+    getBottom: function(){
+      return this._bottom;
+    },
+    getCenter: function(){
+      return this._center;
+    }
+  }
+  windowModel.init();
+
+  var getElementObject = function($element) {
+    return {
+      $el: $element,
+      getHeight: function(){
+        return this.$el.outerHeight();
+      },
+      getTop: function(){
+        return this.$el.offset().top;
+      },
+      getBottom: function(){
+        return this.getTop() + this.getHeight();
+      },
+      getCenter: function(){
+        return this.getTop() + this.getHeight()/2;
+      },
+      centerStrip: function(){
+        $('html, body').animate({
+          scrollTop: this.getCenter()-windowModel.getHeight()/2-settings.headerHeight
+        }, 200);
+        return this;
+      },
+      goToNext: function(){
+        var next = this.$el.next();
+        if(next.length)
+          $currentElement = getElementObject(next).centerStrip();
+      },
+      goToPrev: function(){
+        var next = this.$el.prev();
+        if(next.length)
+          $currentElement = getElementObject(next).centerStrip();
+      }
+    }
+  }
+
   var centerStrip = function($element){
-
-    var window_height = $window.height() - settings.headerHeight;
-    var window_top_position = $window.scrollTop() + settings.headerHeight;
-    var window_center_position = window_top_position + window_height/2;
-
-    var element_height = $element.outerHeight();
-    var element_top_position = $element.offset().top;
-    var element_center_position = element_top_position + element_height/2;
-
-    $('html, body').animate({scrollTop: element_center_position-window_height/2-settings.headerHeight}, 200);
-  }
-
-  var nextStrip = function(){
-    var window_height = $window.height() - settings.headerHeight;
-
-    var $nextElement = $currentElement.next();
-    var next_element_height = $nextElement.outerHeight();
-    var next_element_top_position = $nextElement.offset().top;
-    var next_element_center_position = next_element_top_position + next_element_height/2;
-    $('html, body').animate({scrollTop: next_element_center_position-window_height/2-settings.headerHeight}, 200);
-  }
-
-  var prevStrip = function(){
-    var window_height = $window.height() - settings.headerHeight;
-
-    var $nextElement = $currentElement.prev();
-    var next_element_height = $nextElement.outerHeight();
-    var next_element_top_position = $nextElement.offset().top;
-    var next_element_center_position = next_element_top_position + next_element_height/2;
-    $('html, body').animate({scrollTop: next_element_center_position-window_height/2-settings.headerHeight}, 200);
+    $currentElement = getElementObject($element);
+    $currentElement.centerStrip();
   }
 
   document.onkeydown = function (e) {
@@ -52,24 +86,21 @@ $(function(){
         || e.keyCode === 40 // Down arrow
         || e.keyCode === 39 // Right arrow
       ) {
-      nextStrip();
+      $currentElement.goToNext();
       e.preventDefault();
     }
     if( (  e.keyCode === 32 && e.shiftKey) // Space + shift
         || e.keyCode === 38 // Up arrow
         || e.keyCode === 37 // Left arrow
       ) {
-      prevStrip();
+      $currentElement.goToPrev();
       e.preventDefault();
     }
 };
 
   $window.on('scroll resize', function(){
 
-    var window_height = $window.height() - settings.headerHeight;
-    var window_top_position = $window.scrollTop() + settings.headerHeight;
-    var window_bottom_position = (window_top_position + window_height);
-    var window_center_position = window_top_position + window_height/2;
+    windowModel.updateValues();
 
     var shortestDiff = 999;
 
@@ -78,18 +109,15 @@ $(function(){
     $('.strip').each(function(){
 
       var $element = $(this);
-      var element_height = $element.outerHeight();
-      var element_top_position = $element.offset().top;
-      var element_bottom_position = (element_top_position + element_height);
-      var element_center_position = element_top_position + element_height/2;
+      var elObj = getElementObject($element);
 
       var scale, opacity;
-      if( element_center_position >= window_top_position && element_center_position < window_center_position ) {
-        var index = (element_center_position-window_top_position)/(window_height/2);
+      if( elObj.getCenter() >= windowModel.getTop() && elObj.getCenter() < windowModel.getCenter() ) {
+        var index = (elObj.getCenter()-windowModel.getTop())/(windowModel.getHeight()/2);
         scale = settings.scale + (1-settings.scale)*index;
         opacity = settings.opacity + (1-settings.opacity)*index;
-      } else if( element_center_position <= window_bottom_position && element_center_position >= window_center_position ) {
-        var index = (window_bottom_position-element_center_position)/(window_height/2);
+      } else if( elObj.getCenter() <= windowModel.getBottom() && elObj.getCenter() >= windowModel.getCenter() ) {
+        var index = (windowModel.getBottom()-elObj.getCenter())/(windowModel.getHeight()/2);
         scale = settings.scale + (1-settings.scale)*index;
         opacity = settings.opacity + (1-settings.opacity)*index;
       } else {
@@ -97,22 +125,21 @@ $(function(){
         opacity = settings.opacity;
       }
 
-      var position_index =  (element_center_position-window_center_position)/(window_height/2)
-
+      var position_index =  (elObj.getCenter()-windowModel.getCenter())/(windowModel.getHeight()/2)
 
       $element.find('img')
         .css('transform','scale3d('+scale+','+scale+',1) rotate3d(0,0,1,'+position_index*settings.rotation+'deg) translate3d(0,'+(position_index*settings.offset*-1)+'vh,0)')
         .parent().parent().css('opacity',opacity)
         .css('z-index',Math.round(scale*100));
 
-      if( Math.abs(element_center_position-window_center_position) < shortestDiff) {
-        shortestDiff = Math.abs(element_center_position-window_center_position);
-        $currentElement = $element;
+      if( Math.abs(elObj.getCenter()-windowModel.getCenter()) < shortestDiff) {
+        shortestDiff = Math.abs(elObj.getCenter()-windowModel.getCenter());
+        $currentElement = getElementObject($element);
       }
 
     });
 
-    scrollTO = setTimeout(function(){centerStrip($currentElement);}, 100);
+    scrollTO = setTimeout(function(){$currentElement.centerStrip();}, 100);
 
   })
 
