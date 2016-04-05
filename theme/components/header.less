@@ -29,6 +29,7 @@ header {
 
     h1 {
       margin: @height*0.2 @margin 0;
+      display: inline-block;
       a {
         content: url(img/logo.svg);
         width: auto;
@@ -83,5 +84,15 @@ header {
 
     .capitals;
     font-size: @ratioGolden*1rem;
+
+    a {
+      text-decoration: none;
+      color: fade(#FFF, 70%);
+      .transition(color 0.2s);
+      &:hover {
+        text-decoration: underline;;
+        color: fade(#FFF, 100%);
+      }
+    }
   }
 }

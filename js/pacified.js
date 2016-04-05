@@ -44,6 +44,12 @@ $(function(){
   var getElementObject = function($element) {
     return {
       $el: $element,
+      getId: function(){
+        return this.$el.attr('id');
+      },
+      getElmentById: function(id){
+        return getElementObject($('.strip#'+id));
+      },
       getHeight: function(){
         return this.$el.outerHeight();
       },
@@ -56,11 +62,22 @@ $(function(){
       getCenter: function(){
         return this.getTop() + this.getHeight()/2;
       },
+      getStory: function(){
+        return {
+          name: this.$el.data('storyname'),
+          slug: this.$el.data('storyslug')
+        }
+      },
       centerStrip: function(){
         $('html, body').animate({
           scrollTop: this.getCenter()-windowModel.getHeight()/2-settings.headerHeight
         }, 200);
+        $('#StoryLabel').html(this.getStory().name)
+        $('#StoryStartLink').attr('data-target', this.getStory().slug);
         return this;
+      },
+      goToId: function(id) {
+        $currentElement = this.getElmentById(id).centerStrip();
       },
       goToNext: function(){
         var next = this.$el.next();
@@ -74,6 +91,12 @@ $(function(){
       }
     }
   }
+
+  $('#StoryStartLink').on('click', function(){
+    var id = $('.strip[data-storyslug="'+$(this).attr('data-target')+'"]').attr('id');
+    $currentElement.goToId(id);
+    return false;
+  })
 
   var centerStrip = function($element){
     $currentElement = getElementObject($element);

@@ -15,7 +15,7 @@
     <title><?php wp_title('&raquo;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
 
     <link rel="icon" href="<?php bloginfo('template_url'); ?>/assets/img/favicon.png" type="image/png">
-    
+
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
     <?php wp_head(); ?>
@@ -34,6 +34,7 @@
       </hgroup>
 
       <hgroup class="subHeader">
-        Strip title
+        <span id="StoryLabel"></span>
+        <a href id="StoryStartLink">Go to begining of story</a>
       </hgroup>
     </header>

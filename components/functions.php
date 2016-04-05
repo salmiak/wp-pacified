@@ -7,6 +7,12 @@ if( $_SERVER[SERVER_NAME] == 'localhost' ) {
   error_reporting(0);
 }
 
+
+
+function pac_get_storyline($id) {
+  return wp_get_object_terms( $id, get_post_type( $id ).'_storyline' )[0];
+}
+
 //------------------------------------------------------
 //  Activate the menu functions in wordpress
 //------------------------------------------------------
