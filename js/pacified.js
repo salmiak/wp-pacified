@@ -1,3 +1,10 @@
+var setCookie = function(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
 $(function(){
 
   // Settings:
@@ -48,7 +55,7 @@ $(function(){
         return this.$el.attr('id');
       },
       getElmentById: function(id){
-        return getElementObject($('.strip#'+id));
+        return getElementObject($('#'+id));
       },
       getHeight: function(){
         return this.$el.outerHeight();
@@ -68,12 +75,18 @@ $(function(){
           slug: this.$el.data('storyslug')
         }
       },
+      setCurrent: function(){
+        $('#StoryLabel').html(this.getStory().name)
+        $('#StoryStartLink').attr('data-target', this.getStory().slug);
+        setCookie('pac_lastVisited',this.getId(), 999);
+      },
       centerStrip: function(){
         $('html, body').animate({
           scrollTop: this.getCenter()-windowModel.getHeight()/2-settings.headerHeight
-        }, 200);
-        $('#StoryLabel').html(this.getStory().name)
-        $('#StoryStartLink').attr('data-target', this.getStory().slug);
+        }, 200, function(){
+          $('body > .loading').addClass('disabled');
+        });
+        this.setCurrent();
         return this;
       },
       goToId: function(id) {
@@ -96,12 +109,8 @@ $(function(){
     var id = $('.strip[data-storyslug="'+$(this).attr('data-target')+'"]').attr('id');
     $currentElement.goToId(id);
     return false;
-  })
+  });
 
-  var centerStrip = function($element){
-    $currentElement = getElementObject($element);
-    $currentElement.centerStrip();
-  }
 
   document.onkeydown = function (e) {
     e = e || window.event;
@@ -119,7 +128,7 @@ $(function(){
       $currentElement.goToPrev();
       e.preventDefault();
     }
-};
+  };
 
   $window.on('scroll resize', function(){
 
@@ -167,5 +176,13 @@ $(function(){
   })
 
   $window.trigger('scroll');
+
+  $(document).ready(function(){
+    $currentElement = getElementObject($('.strip'));
+    if (pacified_start_id) {
+      $currentElement = getElementObject($('#'+pacified_start_id));
+    }
+    $currentElement.centerStrip();
+  })
 
 })
