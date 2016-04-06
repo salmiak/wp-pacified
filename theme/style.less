@@ -8,6 +8,8 @@
 @ratioGolden: 0.61803398875;
 @ratioHalfGolden: 0.78615137775;
 
+@bgColor: #82ca9c;
+
 // Mixins
 
 .capitals {
@@ -16,7 +18,8 @@
 }
 
 body {
-  background: #82ca9c;
+  background: @bgColor url(img/bg.svg) 50% 50%;
+  background-size: 384px;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   font-weight: 900;
