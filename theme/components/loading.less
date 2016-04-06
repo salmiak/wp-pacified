@@ -1,0 +1,26 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 550;
+  background: darken(@bgColor, 10%);
+  .transition(transform 0.3s);
+  > img {
+    @size: 12vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: @size/-2;
+    width: @size;
+    height: auto;
+    .animation(spin 1.3s linear infinite);
+
+    .keyframes(~'spin, 100%{ transform: rotate(720deg); }');
+
+  }
+  &.disabled {
+    .translate3d(0px, -100vh, 0);
+  }
+}

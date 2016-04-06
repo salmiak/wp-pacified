@@ -24,6 +24,10 @@
 
   <body <?php body_class(); ?>>
 
+    <div class="loading">
+      <img src="<?php bloginfo('template_url'); ?>/assets/img/napp.svg" />
+    </div>
+
     <header>
       <hgroup class="topHeader">
         <h1><a href="<?php bloginfo('url'); ?>" title="<?php bloginfo('name'); ?> - <?php bloginfo( 'description' ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
