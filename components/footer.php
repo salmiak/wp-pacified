@@ -1,4 +1,3 @@
-  <?php get_sidebar(); ?>
 
   <!--<footer>
     <p>© <?php echo date('Y'); ?>  <?php bloginfo('name'); ?></p>
