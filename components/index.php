@@ -12,7 +12,7 @@
 
     if ($webcomics and $webcomics->have_posts()) :
 			while ($webcomics->have_posts()) : $webcomics->the_post();
-        printf('<div class="strip" id="strip%s" data-storyslug="%s" data-storyname="%s">', $post->ID, pac_get_storyline($post->ID)->slug, pac_get_storyline($post->ID)->name);
+        printf('<div class="strip" id="strip%s" data-storyslug="%s" data-storyname="%s" data-background="%s">', $post->ID, pac_get_storyline($post->ID)->slug, pac_get_storyline($post->ID)->name, get_field('background', $post->ID));
 
         the_webcomic('large', 'self');
         echo '</div>';
@@ -25,11 +25,9 @@
     <?php if ( have_posts() && !is_home() ) { the_post(); ?>
     <script>
       pacified_start_id = 'strip<?php echo $post->ID; ?>';
-      console.log('l: ' + pacified_start_id);
     </script>
     <?php } elseif ( is_home() ) { ?>
     <script>
-
       var getCookie = function(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -40,9 +38,7 @@
         }
         return "";
       }
-
       pacified_start_id = getCookie('pac_lastVisited');
-      console.log('c: ' + pacified_start_id);
     </script>
     <?php } ?>
 

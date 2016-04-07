@@ -78,6 +78,7 @@ $(function(){
       setCurrent: function(){
         $('#StoryLabel').html(this.getStory().name)
         $('#StoryStartLink').attr('data-target', this.getStory().slug);
+        $('body').attr('data-background', this.$el.attr('data-background'));
         setCookie('pac_lastVisited',this.getId(), 999);
       },
       centerStrip: function(){
