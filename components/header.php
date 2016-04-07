@@ -25,7 +25,7 @@
   <body <?php body_class(); ?>>
 
     <div class="loading"><div>
-      <img src="<?php bloginfo('template_url'); ?>/assets/img/napp.svg" />
+      <img src="<?php bloginfo('template_url'); ?>/assets/img/logo.svg" />
     </div></div>
 
     <header>

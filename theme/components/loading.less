@@ -1,26 +1,37 @@
 
+@animatedBgSize: 512px;
+
 .loading {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 550;
-  background: darken(@bgColor, 10%);
+  z-index: 750;
+  background: darken(@bgColor, 10%) url(img/bg.svg);
+  background-size: @animatedBgSize;
+
   .transition(transform .3s ease-in 0.2s);
+  .animation(animatedBackground 1s linear infinite);
   >div {
-    @size: 10vw;
+    @size: 25vw;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: @size/-2;
-
-
-    .animation(growing .5s linear infinite alternate);
+    margin: -1/@ratioLogo*@size/2*1.5 @size/-2;
     > img {
       width: @size;
       height: auto;
-      .animation(rotation .6s linear infinite);
+    }
+    &:after {
+      content: 'Loading...';
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      width: 100%;
+      height: 20px;
+      text-align: center;
+      margin: 1/@ratioLogo*@size/2*1.5 0;
     }
   }
   &.disabled {
@@ -28,15 +39,7 @@
   }
 }
 
-@scaleSize: 2;
-@-webkit-keyframes growing{ 100%{ -webkit-transform: scale(@scaleSize); }}
-@-moz-keyframes growing{ 100%{ -moz-transform: scale(@scaleSize); }}
-@-o-keyframes growing{ 100%{ -o-transform: scale(@scaleSize); }}
-@keyframes growing{ 100%{-webkit-transform: scale(@scaleSize);-moz-transform: scale(@scaleSize);-ms-transform: scale(@scaleSize);transform: scale(@scaleSize); };
-}
-
-@-webkit-keyframes rotation{ 100%{ -webkit-transform: rotate(360deg); }}
-@-moz-keyframes rotation{ 100%{ -moz-transform: rotate(360deg); }}
-@-o-keyframes rotation{ 100%{ -o-transform: rotate(360deg); }}
-@keyframes rotation{ 100%{-webkit-transform: rotate(360deg);-moz-transform: rotate(360deg);-ms-transform: rotate(360deg);transform: rotate(360deg); };
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: -@animatedBgSize 0; }
 }
