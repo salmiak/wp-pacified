@@ -97,3 +97,35 @@ header {
     }
   }
 }
+
+@media (max-width: 480px) {
+  header {
+    .topHeader{
+      text-align: center;
+      h1 {
+        margin-top: @headerHeight*(1.9-1/@ratioHalfGolden)/2;
+        a {
+          height: @headerHeight*1/@ratioHalfGolden;
+          width: auto;
+        }
+      }
+      nav {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        top: auto;
+        height: @headerHeight;
+        //line-height: 2rem;
+        background: #00707e;
+      }
+    }
+    .subHeader {
+      /*height: @headerHeight*1.5;
+      padding: @headerHeight*0.8 0 0;
+      text-align: center;*/
+      color: rgba(0,0,0,0);
+      a { display: none; }
+    }
+  }
+}
