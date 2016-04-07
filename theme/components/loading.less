@@ -7,7 +7,7 @@
   bottom: 0;
   z-index: 550;
   background: darken(@bgColor, 10%);
-  .transition(transform 0.3s);
+  .transition(transform .3s ease-in 0.2s);
   >div {
     @size: 10vw;
     position: absolute;
@@ -20,7 +20,7 @@
     > img {
       width: @size;
       height: auto;
-      .animation(rotation 1.7s linear infinite);
+      .animation(rotation .6s linear infinite);
     }
   }
   &.disabled {
@@ -35,8 +35,8 @@
 @keyframes growing{ 100%{-webkit-transform: scale(@scaleSize);-moz-transform: scale(@scaleSize);-ms-transform: scale(@scaleSize);transform: scale(@scaleSize); };
 }
 
-@-webkit-keyframes rotation{ 100%{ -webkit-transform: rotate(720deg); }}
-@-moz-keyframes rotation{ 100%{ -moz-transform: rotate(720deg); }}
-@-o-keyframes rotation{ 100%{ -o-transform: rotate(720deg); }}
-@keyframes rotation{ 100%{-webkit-transform: rotate(720deg);-moz-transform: rotate(720deg);-ms-transform: rotate(720deg);transform: rotate(720deg); };
+@-webkit-keyframes rotation{ 100%{ -webkit-transform: rotate(360deg); }}
+@-moz-keyframes rotation{ 100%{ -moz-transform: rotate(360deg); }}
+@-o-keyframes rotation{ 100%{ -o-transform: rotate(360deg); }}
+@keyframes rotation{ 100%{-webkit-transform: rotate(360deg);-moz-transform: rotate(360deg);-ms-transform: rotate(360deg);transform: rotate(360deg); };
 }
