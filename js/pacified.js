@@ -83,7 +83,7 @@ $(function(){
       },
       centerStrip: function(){
         $('html, body').animate({
-          scrollTop: this.getCenter()-windowModel.getHeight()/2-settings.headerHeight
+          scrollTop: this.getCenter()-windowModel.getHeight()/2-settings.headerHeight*1.1
         }, 200, function(){
           $('body > .loading').addClass('disabled');
         });

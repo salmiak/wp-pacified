@@ -1,9 +1,9 @@
 #MainContent {
-  width: 90vw;
+  width: 95vw;
   max-width: 1000px;
   position: relative;
   margin: 0 auto;
-  padding: @headerHeight 0 15vh;
+  padding: @headerHeight 0 10vh;
 
   .strip {
     position: relative;
@@ -12,8 +12,8 @@
     transform-origin: 50% 50%;
 
     > a > img {
-      max-width: 90%;
-      max-height: 85vh;
+      max-width: 100%;
+      max-height: calc(85vh ~'-' @headerHeight);
       width: auto;
       height: auto;
       display: block;
