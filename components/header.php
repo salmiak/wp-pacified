@@ -24,9 +24,9 @@
 
   <body <?php body_class(); ?>>
 
-    <div class="loading">
+    <div class="loading"><div>
       <img src="<?php bloginfo('template_url'); ?>/assets/img/napp.svg" />
-    </div>
+    </div></div>
 
     <header>
       <hgroup class="topHeader">

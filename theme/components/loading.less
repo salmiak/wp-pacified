@@ -8,19 +8,35 @@
   z-index: 550;
   background: darken(@bgColor, 10%);
   .transition(transform 0.3s);
-  > img {
-    @size: 12vw;
+  >div {
+    @size: 10vw;
     position: absolute;
     top: 50%;
     left: 50%;
     margin: @size/-2;
-    width: @size;
-    height: auto;
-    .animation(spin 1.3s linear infinite);
+
+
+    .animation(growing .5s linear infinite alternate);
+    > img {
+      width: @size;
+      height: auto;
+      .animation(rotation 1.7s linear infinite);
+    }
   }
   &.disabled {
     .translate3d(0px, -100vh, 0);
   }
 }
 
-.keyframes(~'spin, 100%{ transform: rotate(720deg); }');
+@scaleSize: 2;
+@-webkit-keyframes growing{ 100%{ -webkit-transform: scale(@scaleSize); }}
+@-moz-keyframes growing{ 100%{ -moz-transform: scale(@scaleSize); }}
+@-o-keyframes growing{ 100%{ -o-transform: scale(@scaleSize); }}
+@keyframes growing{ 100%{-webkit-transform: scale(@scaleSize);-moz-transform: scale(@scaleSize);-ms-transform: scale(@scaleSize);transform: scale(@scaleSize); };
+}
+
+@-webkit-keyframes rotation{ 100%{ -webkit-transform: rotate(720deg); }}
+@-moz-keyframes rotation{ 100%{ -moz-transform: rotate(720deg); }}
+@-o-keyframes rotation{ 100%{ -o-transform: rotate(720deg); }}
+@keyframes rotation{ 100%{-webkit-transform: rotate(720deg);-moz-transform: rotate(720deg);-ms-transform: rotate(720deg);transform: rotate(720deg); };
+}
