@@ -8,7 +8,7 @@
   right: 0;
   bottom: 0;
   z-index: 750;
-  background: darken(@bgColor, 10%) url(img/bg.svg);
+  background: darken(@bgColor, 10%);
   background-size: @animatedBgSize;
 
   .transition(transform .3s ease-in 0.2s);
@@ -35,7 +35,7 @@
     }
   }
   &.disabled {
-    .translate3d(0px, -100vh, 0);
+    .translate3d(0px, -120vh, 0);
   }
 }
 

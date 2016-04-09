@@ -25,6 +25,7 @@ if(!mobilecheck()) {
 
     var $window = $(window);
     var scrollTO;
+    var isScrolling;
     var $currentElement;
 
     var windowModel = {
@@ -56,6 +57,8 @@ if(!mobilecheck()) {
     windowModel.init();
 
     var getElementObject = function($element) {
+      if(!$element || !$element.length)
+        return false;
       return {
         $el: $element,
         getId: function(){
@@ -89,10 +92,12 @@ if(!mobilecheck()) {
           setCookie('pac_lastVisited',this.getId(), 999);
         },
         centerStrip: function(){
+          isScrolling = true;
           $('html, body').animate({
             scrollTop: Math.floor(this.getCenter()-windowModel.getHeight()/2-settings.headerHeight*1.1)
           }, 200, function(){
             $('body > .loading').addClass('disabled');
+            isScrolling = false;
           });
           this.setCurrent();
           return this;
@@ -142,55 +147,65 @@ if(!mobilecheck()) {
 
       windowModel.updateValues();
 
-      var shortestDiff = 999;
+      if(!isScrolling) {
 
-      clearTimeout(scrollTO);
+        var shortestDiff = 999;
 
-      $('.strip').each(function(){
+        clearTimeout(scrollTO);
 
-        var $element = $(this);
-        var elObj = getElementObject($element);
+        $('.strip').each(function(){
 
-        var scale, opacity;
-        if( elObj.getCenter() >= windowModel.getTop() && elObj.getCenter() < windowModel.getCenter() ) {
-          var index = (elObj.getCenter()-windowModel.getTop())/(windowModel.getHeight()/2);
-          scale = settings.scale + (1-settings.scale)*index;
-          opacity = settings.opacity + (1-settings.opacity)*index;
-        } else if( elObj.getCenter() <= windowModel.getBottom() && elObj.getCenter() >= windowModel.getCenter() ) {
-          var index = (windowModel.getBottom()-elObj.getCenter())/(windowModel.getHeight()/2);
-          scale = settings.scale + (1-settings.scale)*index;
-          opacity = settings.opacity + (1-settings.opacity)*index;
-        } else {
-          scale = settings.scale;
-          opacity = settings.opacity;
-        }
+          var $element = $(this);
+          var elObj = getElementObject($element);
 
-        var position_index =  (elObj.getCenter()-windowModel.getCenter())/(windowModel.getHeight()/2)
+          var scale, opacity;
+          if( elObj.getCenter() >= windowModel.getTop() && elObj.getCenter() < windowModel.getCenter() ) {
+            var index = (elObj.getCenter()-windowModel.getTop())/(windowModel.getHeight()/2);
+            scale = settings.scale + (1-settings.scale)*index;
+            opacity = settings.opacity + (1-settings.opacity)*index;
+          } else if( elObj.getCenter() <= windowModel.getBottom() && elObj.getCenter() >= windowModel.getCenter() ) {
+            var index = (windowModel.getBottom()-elObj.getCenter())/(windowModel.getHeight()/2);
+            scale = settings.scale + (1-settings.scale)*index;
+            opacity = settings.opacity + (1-settings.opacity)*index;
+          } else {
+            scale = settings.scale;
+            opacity = settings.opacity;
+          }
 
-        $element.find('img')
-          .css('transform','scale3d('+scale+','+scale+',1) rotate3d(0,0,1,'+position_index*settings.rotation+'deg) translate3d(0,'+(position_index*settings.offset*-1)+'vh,0)')
-          .parent().parent().css('opacity',opacity)
-          .css('z-index',Math.round(scale*100));
+          var position_index =  (elObj.getCenter()-windowModel.getCenter())/(windowModel.getHeight()/2)
 
-        if( Math.abs(elObj.getCenter()-windowModel.getCenter()) < shortestDiff) {
-          shortestDiff = Math.abs(elObj.getCenter()-windowModel.getCenter());
-          $currentElement = getElementObject($element);
-        }
+          $element.find('img')
+            .css('transform','scale3d('+scale+','+scale+',1) rotate3d(0,0,1,'+position_index*settings.rotation+'deg) translate3d(0,'+(position_index*settings.offset*-1)+'vh,0)')
+            .parent().parent().css('opacity',opacity)
+            .css('z-index',Math.round(scale*100));
 
-      });
+          if( Math.abs(elObj.getCenter()-windowModel.getCenter()) < shortestDiff) {
+            shortestDiff = Math.abs(elObj.getCenter()-windowModel.getCenter());
+            $currentElement = getElementObject($element);
+          }
 
-      scrollTO = setTimeout(function(){$currentElement.centerStrip();}, 100);
+        });
+
+        scrollTO = setTimeout(function(){
+          $currentElement.centerStrip();
+        }, 100);
+
+      }
 
     })
 
     $window.trigger('scroll');
 
     $(document).ready(function(){
-      $currentElement = getElementObject($('.strip'));
+      $currentElement = getElementObject($('.strip').first());
       if (pacified_start_id) {
-        $currentElement = getElementObject($('#'+pacified_start_id));
+        var start_target = $('#'+pacified_start_id).first();
+        if(start_target.length) {
+          $currentElement = getElementObject(start_target);
+        }
       }
-      $currentElement.centerStrip();
+      if($currentElement)
+        $currentElement.centerStrip();
     })
 
   })
