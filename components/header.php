@@ -38,8 +38,12 @@
         </nav>
       </hgroup>
 
-      <hgroup class="subHeader">
-        <span id="StoryLabel"></span>
-        <a href id="StoryStartLink">Go to begining of story</a>
-      </hgroup>
+      <?php if( !is_page() ) {?>
+        <hgroup class="subHeader">
+          <span id="StoryLabel"></span>
+          <a href id="StoryStartLink">Go to begining of story</a>
+        </hgroup>
+      <?php } else { ?>
+        <hgroup class="subHeader"></hgroup>
+      <?php } ?>
     </header>

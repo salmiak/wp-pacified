@@ -40,7 +40,13 @@
       }
       pacified_start_id = getCookie('pac_lastVisited');
     </script>
-    <?php } ?>
+    <?php }
+
+    wp_deregister_script('pacifiedjs');
+    wp_register_script('pacifiedjs', get_stylesheet_directory_uri() ."/assets/pacified-webcomics.js", false, false, true);
+    wp_enqueue_script('pacifiedjs');
+
+    ?>
 
 </div>
 

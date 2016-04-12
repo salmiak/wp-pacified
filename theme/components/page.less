@@ -1,0 +1,41 @@
+.container{
+  padding: 2rem 4rem 3rem;
+  margin: 1rem auto 0;
+  border-radius: 3px;
+  max-width: 700px;
+  &.bg-white {
+    background: #ffffff;
+  }
+
+  .alignright {
+    float: right;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    margin-top: .5rem;
+  }
+  .alignleft {
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    margin-top: .5rem;
+  }
+  .aligncenter {
+    float: none;
+    clear: both;
+    margin: 0 auto 1.5rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 3px;
+  }
+
+}
+
+
+@media (max-width: 480px), (max-height: 480px) {
+  .container{
+    padding: 1rem 2rem 3rem;
+  }
+}
