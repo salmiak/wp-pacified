@@ -204,8 +204,7 @@ if(!mobilecheck()) {
           $currentElement = getElementObject(start_target);
         }
       }
-      if($currentElement)
-        $currentElement.centerStrip();
+      $currentElement.centerStrip();
     })
 
   })
