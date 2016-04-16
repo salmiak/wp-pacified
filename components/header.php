@@ -41,8 +41,7 @@
       <?php if( !is_page() ) {?>
         <hgroup class="subHeader">
           <div class="pull-right" id="StoryDescription"></div>
-          <span id="StoryLabel"></span>
-          <a href id="StoryStartLink">Go to begining of story</a>
+          <a href id="StoryStartLink"><span id="StoryLabel"></span> <span class="ion-ios-skipbackward"></span></a>
         </hgroup>
       <?php } else { ?>
         <hgroup class="subHeader"></hgroup>

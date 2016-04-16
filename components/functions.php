@@ -37,9 +37,14 @@ if ( function_exists('register_sidebar') )
 //------------------------------------------------------
 
 if ( !is_admin() ) {
-  wp_deregister_style('pacifiedjs');
+  wp_deregister_style('pacifiedcss');
   wp_register_style( 'pacifiedcss', get_stylesheet_directory_uri() ."/assets/style.css" );
   wp_enqueue_style('pacifiedcss');
+
+  wp_deregister_style('ioniccss');
+  wp_register_style( 'ioniccss', "http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" );
+  wp_enqueue_style('ioniccss');
+
 }
 
 //------------------------------------------------------
