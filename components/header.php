@@ -40,6 +40,7 @@
 
       <?php if( !is_page() ) {?>
         <hgroup class="subHeader">
+          <div class="pull-right" id="StoryDescription"></div>
           <span id="StoryLabel"></span>
           <a href id="StoryStartLink">Go to begining of story</a>
         </hgroup>

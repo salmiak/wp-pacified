@@ -12,7 +12,7 @@
 
     if ($webcomics and $webcomics->have_posts()) :
 			while ($webcomics->have_posts()) : $webcomics->the_post();
-        printf('<div class="strip" id="strip%s" data-storyslug="%s" data-storyname="%s" data-background="%s">', $post->ID, pac_get_storyline($post->ID)->slug, pac_get_storyline($post->ID)->name, get_field('background', $post->ID));
+        printf('<div class="strip" id="strip%s" data-storyslug="%s" data-storyname="%s" data-storydesc="%s" data-background="%s">', $post->ID, pac_get_storyline($post->ID)->slug, pac_get_storyline($post->ID)->name, pac_get_storyline($post->ID)->description, get_field('background', $post->ID));
 
         the_webcomic('large', 'self');
         echo '</div>';

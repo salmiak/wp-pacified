@@ -82,12 +82,14 @@ if(!mobilecheck()) {
         getStory: function(){
           return {
             name: this.$el.data('storyname'),
-            slug: this.$el.data('storyslug')
+            slug: this.$el.data('storyslug'),
+            description: this.$el.data('storydesc')
           }
         },
         setCurrent: function(){
-          $('#StoryLabel').html(this.getStory().name)
+          $('#StoryLabel').html(this.getStory().name);
           $('#StoryStartLink').attr('data-target', this.getStory().slug);
+          $('#StoryDescription').html(this.getStory().description);
           $('body').attr('data-background', this.$el.attr('data-background'));
           setCookie('pac_lastVisited',this.getId(), 999);
         },
