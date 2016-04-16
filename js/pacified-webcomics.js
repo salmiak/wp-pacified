@@ -25,7 +25,7 @@ if(!mobilecheck()) {
 
     var $window = $(window);
     var scrollTO;
-    var isScrolling;
+    var isCenteringStrip;
     var $currentElement;
 
     var windowModel = {
@@ -94,12 +94,12 @@ if(!mobilecheck()) {
           setCookie('pac_lastVisited',this.getId(), 999);
         },
         centerStrip: function(){
-          isScrolling = true;
+          isCenteringStrip = true;
           $('html, body').animate({
             scrollTop: Math.floor(this.getCenter()-windowModel.getHeight()/2-settings.headerHeight*1.1)
           }, 200, function(){
             $('body > .loading').addClass('disabled');
-            isScrolling = false;
+            isCenteringStrip = false;
           });
           this.setCurrent();
           return this;
@@ -149,49 +149,47 @@ if(!mobilecheck()) {
 
       windowModel.updateValues();
 
-      if(!isScrolling) {
+      var shortestDiff = 999;
 
-        var shortestDiff = 999;
+      clearTimeout(scrollTO);
 
-        clearTimeout(scrollTO);
+      $('.strip').each(function(){
 
-        $('.strip').each(function(){
+        var $element = $(this);
+        var elObj = getElementObject($element);
 
-          var $element = $(this);
-          var elObj = getElementObject($element);
+        var scale, opacity;
+        if( elObj.getCenter() >= windowModel.getTop() && elObj.getCenter() < windowModel.getCenter() ) {
+          var index = (elObj.getCenter()-windowModel.getTop())/(windowModel.getHeight()/2);
+          scale = settings.scale + (1-settings.scale)*index;
+          opacity = settings.opacity + (1-settings.opacity)*index;
+        } else if( elObj.getCenter() <= windowModel.getBottom() && elObj.getCenter() >= windowModel.getCenter() ) {
+          var index = (windowModel.getBottom()-elObj.getCenter())/(windowModel.getHeight()/2);
+          scale = settings.scale + (1-settings.scale)*index;
+          opacity = settings.opacity + (1-settings.opacity)*index;
+        } else {
+          scale = settings.scale;
+          opacity = settings.opacity;
+        }
 
-          var scale, opacity;
-          if( elObj.getCenter() >= windowModel.getTop() && elObj.getCenter() < windowModel.getCenter() ) {
-            var index = (elObj.getCenter()-windowModel.getTop())/(windowModel.getHeight()/2);
-            scale = settings.scale + (1-settings.scale)*index;
-            opacity = settings.opacity + (1-settings.opacity)*index;
-          } else if( elObj.getCenter() <= windowModel.getBottom() && elObj.getCenter() >= windowModel.getCenter() ) {
-            var index = (windowModel.getBottom()-elObj.getCenter())/(windowModel.getHeight()/2);
-            scale = settings.scale + (1-settings.scale)*index;
-            opacity = settings.opacity + (1-settings.opacity)*index;
-          } else {
-            scale = settings.scale;
-            opacity = settings.opacity;
-          }
+        var position_index =  (elObj.getCenter()-windowModel.getCenter())/(windowModel.getHeight()/2)
 
-          var position_index =  (elObj.getCenter()-windowModel.getCenter())/(windowModel.getHeight()/2)
+        $element.find('img')
+          .css('transform','scale3d('+scale+','+scale+',1) rotate3d(0,0,1,'+position_index*settings.rotation+'deg) translate3d(0,'+(position_index*settings.offset*-1)+'vh,0)')
+          .parent().parent().css('opacity',opacity)
+          .css('z-index',Math.round(scale*100));
 
-          $element.find('img')
-            .css('transform','scale3d('+scale+','+scale+',1) rotate3d(0,0,1,'+position_index*settings.rotation+'deg) translate3d(0,'+(position_index*settings.offset*-1)+'vh,0)')
-            .parent().parent().css('opacity',opacity)
-            .css('z-index',Math.round(scale*100));
+        if( Math.abs(elObj.getCenter()-windowModel.getCenter()) < shortestDiff) {
+          shortestDiff = Math.abs(elObj.getCenter()-windowModel.getCenter());
+          $currentElement = getElementObject($element);
+        }
 
-          if( Math.abs(elObj.getCenter()-windowModel.getCenter()) < shortestDiff) {
-            shortestDiff = Math.abs(elObj.getCenter()-windowModel.getCenter());
-            $currentElement = getElementObject($element);
-          }
+      });
 
-        });
-
+      if(!isCenteringStrip) {
         scrollTO = setTimeout(function(){
           $currentElement.centerStrip();
         }, 100);
-
       }
 
     })
