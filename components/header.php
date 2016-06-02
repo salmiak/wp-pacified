@@ -46,8 +46,8 @@
       <?php } else { ?>
         <hgroup class="subHeader"></hgroup>
       <?php } ?>
-      <a href="https://www.kickstarter.com/projects/239216143/1391348178" class="ks-badge">
-        Support the Pacifiers on<br/>
+      <a href="/thank-you/" class="ks-badge">
+        Funded with<br/>
         <img src="<?php bloginfo('template_url'); ?>/assets/img/kickstarter.svg" class="ks-badge-img" />
       </a>
     </header>
