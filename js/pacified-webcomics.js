@@ -194,16 +194,18 @@ if(!mobilecheck()) {
 
     })
 
-    $window.trigger('scroll');
+    $window.on('load', function(){ $window.trigger('scroll'); });
 
-    $(document).ready(function(){
-      $currentElement = getElementObject($('.strip').first());
+    $window.on('load', function(){
+      $currentElement = getElementObject($('.strip').last());
+      /*
       if (pacified_start_id) {
         var start_target = $('#'+pacified_start_id).first();
         if(start_target.length) {
           $currentElement = getElementObject(start_target);
         }
       }
+      */
       $currentElement.centerStrip();
     })
 
