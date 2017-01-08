@@ -7,7 +7,7 @@
     $webcomics = new WP_Query(array(
 			'order' => 'ASC',
 			'post_type' => get_webcomic_collections(),
-			'posts_per_page' => 10
+			'posts_per_page' => 999
 		));
 
     if ($webcomics and $webcomics->have_posts()) :
