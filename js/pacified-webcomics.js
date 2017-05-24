@@ -215,3 +215,34 @@ if(!mobilecheck()) {
     $('body > .loading').addClass('disabled');
   })
 }
+
+
+var base64pixel = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAN1CAQAAAAeG/caAAADU0lEQVR42u3PAQ0AAAwCoNu/9HM4oQG5MREWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFq73UNcDdjLgvFQAAAAASUVORK5CYII=';
+
+
+$(function(){
+  $('.strip img').each(function(){
+    var src = $(this).attr('src');
+    var srcset = $(this).attr('srcset');
+    $(this).attr('src',base64pixel);
+    $(this).attr('srcset',base64pixel);
+    $(this).data('src',src);
+    $(this).data('srcset',srcset);
+  });
+});
+$(document).on('ready',function(){
+  $(window).on('scroll resize', function(){
+    var currentScroll = $(window).scrollTop();
+    $('.strip').each(function(){
+      if( $(this).position().top > currentScroll - $(window).height() &&
+          $(this).position().top < currentScroll + $(window).height() * 2 ) {
+
+        var $img = $(this).find('img:first');
+        $img.attr('src',$img.data('src'));
+        $img.attr('srcset',$img.data('srcset'));
+
+      }
+    });
+  });
+
+});
