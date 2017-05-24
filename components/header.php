@@ -47,7 +47,7 @@
         <hgroup class="subHeader"></hgroup>
       <?php } ?>
       <a href="http://pacifierscomic.tictail.com/" class="shop-badge">
-        Get you own paper-copy & merch from the<br/>
+        Buy The Comic Book from<br/>
         <span>Pacifiers Store</span>
       </a>
     </header>
