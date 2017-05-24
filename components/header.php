@@ -46,8 +46,8 @@
       <?php } else { ?>
         <hgroup class="subHeader"></hgroup>
       <?php } ?>
-      <a href="/thank-you/" class="ks-badge">
-        Funded with<br/>
-        <img src="<?php bloginfo('template_url'); ?>/assets/img/kickstarter.svg" class="ks-badge-img" />
+      <a href="http://pacifierscomic.tictail.com/" class="shop-badge">
+        Get you own paper-copy & merch from the<br/>
+        <span>Pacifiers Store</span>
       </a>
     </header>

@@ -1,0 +1,51 @@
+@ksBlack: #0F2105;
+@ksGreen: #2BDE73;
+
+.shop-badge {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 15px;
+  z-index: -100;
+  background: @ksGreen;
+  padding: @headerHeight*2 15px 5px;
+  border-radius: 0 0 5px 5px;
+  color: inherit;
+  text-decoration: none;
+  .capitals;
+  font-size: @ratioGolden*1rem;
+  .rotate3d(0,0,1,2.5deg);
+  .transition(all 0.3s);
+  .transform-origin(20 0);
+  .animation(swing 1.4s ease 3.5s);
+  .box-shadow(0 2px 0 1px fade(@ksBlack, 20%));
+  &:hover {
+    .rotate3d(0,0,1,4deg);
+  }
+  > span {
+    font-size: @ratioGolden*3rem;
+    font-weight: 900;
+  }
+}
+
+@keyframes swing {
+  20% {
+    transform: rotate3d(0, 0, 1, 9deg);
+  }
+
+  40% {
+    transform: rotate3d(0, 0, 1, -2.5deg);
+  }
+
+  60% {
+    transform: rotate3d(0, 0, 1, 5deg);
+  }
+
+  80% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+
+  to {
+    transform: rotate3d(0, 0, 1, 2.5deg);
+  }
+}
