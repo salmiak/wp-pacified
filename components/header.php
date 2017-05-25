@@ -48,6 +48,6 @@
       <?php } ?>
       <a href="http://pacifierscomic.tictail.com/" class="shop-badge">
         Buy The Comic Book from<br/>
-        <span>Pacifiers Store</span>
+        <span>The Pacifiers Store</span>
       </a>
     </header>
